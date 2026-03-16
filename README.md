@@ -58,7 +58,7 @@ Le script accepte aussi un CSV (colonnes `file,xmin,ymin,xmax,ymax,class_name`).
 - LLM local : modèles GGUF (llama.cpp) ou gpt4all (ex : `gpt4all-falcon-q4_0.gguf`) — gratuits, téléchargeables depuis Hugging Face.
 - Optimisations :
   - GPU : augmentez `batch` dans `train/yolo_train.sh` (0 = auto YOLOv8), utilisez `imgsz` réduit (512/448) en cas de VRAM limitée.
-  - CPU-only : préférez `yolov8n.pt`, désactivez l'affichage/sauvegarde (`show=False`, `save=False` avec Ultralytics), utilisez `--conf` plus élevé pour réduire le nombre de boîtes.
+  - CPU-only : préférez `yolov8n.pt`, désactivez l'affichage/sauvegarde (`show=False`, `save=False` avec Ultralytics). Un seuil `--conf` plus élevé filtre les boîtes faibles et réduit un peu la post-procession.
   - Activations rapides : PyTorch active `cudnn.benchmark` automatiquement pour lots fixes ; sinon fixez `CUDNN_BENCHMARK=1`.
   - Quantification LLM : utiliser gguf 4/8 bits pour CPU, GPU si disponible dans llama.cpp/gpt4all.
 

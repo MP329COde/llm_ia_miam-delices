@@ -108,7 +108,9 @@ def run_inference(
         score = float(box.conf.item())
         xyxy = box.xyxy.cpu().numpy().tolist()[0]
         # Ultralytics stocke les noms soit sur la sortie (results[0].names) soit sur le modèle.
-        names = results[0].names if hasattr(results[0], "names") else model.model.names
+        names = getattr(results[0], "names", None) or getattr(model.model, "names", {}) or {}
+        if not names:
+            raise RuntimeError("Impossible de récupérer le mapping des classes (names).")
         parsed.append(
             {
                 "class_id": cls_idx,
