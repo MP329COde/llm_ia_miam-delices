@@ -29,8 +29,12 @@ app = FastAPI(title="IA Culinaire Locale", version="0.1.0")
 # CORS permissif pour faciliter les tests frontend locaux (à restreindre en prod).
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -46,6 +50,16 @@ class DetectionResponse(BaseModel):
     device: str
     conf_threshold: float
     detections: List[Dict[str, Any]]
+
+
+class FeedbackPayload(BaseModel):
+    """
+    Modèle de feedback utilisateur (basique) pour sécuriser les entrées.
+    """
+
+    score: float | None = None
+    comment: str | None = None
+    correction: Dict[str, Any] | None = None
 
 
 @app.get("/health")
@@ -99,7 +113,7 @@ async def analyse_image(file: UploadFile = File(...)) -> DetectionResponse:
 
 
 @app.post("/feedback")
-async def feedback(payload: Dict[str, Any]) -> Dict[str, str]:
+async def feedback(payload: FeedbackPayload) -> Dict[str, str]:
     """
     Point d'extension pour recevoir le feedback utilisateur.
     (Non persisté ici, à compléter avec une base locale SQLite/CSV.)
@@ -110,4 +124,8 @@ async def feedback(payload: Dict[str, Any]) -> Dict[str, str]:
     Returns:
         dict: message de confirmation.
     """
-    return {"status": "accepted", "detail": "Feedback enregistré (placeholder)"}
+    return {
+        "status": "accepted",
+        "detail": "Feedback enregistré (placeholder)",
+        "received": payload.model_dump(),
+    }
