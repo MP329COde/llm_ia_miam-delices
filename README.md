@@ -15,6 +15,13 @@ chmod +x install.sh
 ```
 Le script crée un environnement virtuel `.venv`, détecte automatiquement la présence de CUDA et installe les dépendances listées dans `requirements.txt`.
 
+### Installation Windows (PowerShell)
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install_windows.ps1
+.\.venv\Scripts\Activate.ps1
+```
+Le script Windows est équivalent : il configure la venv, teste `nvidia-smi` et installe les dépendances. En absence de GPU, tout fonctionne en CPU-only (plus lent).
+
 ## Démarrage de l'API
 ```bash
 source .venv/bin/activate
@@ -44,8 +51,20 @@ python data/convert_to_yolo.py --coco chemin/annotations.json --output-dir sorti
 ```
 Le script accepte aussi un CSV (colonnes `file,xmin,ymin,xmax,ymax,class_name`).
 
+## Performance & meilleurs modèles open-source (gratuit)
+- Détection rapide : `yolov8n.pt` (CPU/GPU), passer à `yolov8s.pt` ou `yolov8m.pt` si plus de VRAM.
+- Légende d'image : `Salesforce/blip-image-captioning-base` (gratuit via transformers).
+- Classification : backbones `convnext_base` ou `efficientnet_b3` (timm) avec `pretrained=True`.
+- LLM local : modèles GGUF (llama.cpp) ou gpt4all (ex : `gpt4all-falcon-q4_0.gguf`) — gratuits, téléchargeables depuis Hugging Face.
+- Optimisations :
+  - GPU : augmentez `batch` dans `train/yolo_train.sh` (0 = auto YOLOv8), utilisez `imgsz` réduit (512/448) en cas de VRAM limitée.
+  - CPU-only : préférez `yolov8n.pt`, désactivez affichage, utilisez `--conf` plus élevé pour réduire le nombre de boîtes.
+  - Activations rapides : PyTorch active `cudnn.benchmark` automatiquement pour lots fixes ; sinon fixez `CUDNN_BENCHMARK=1`.
+  - Quantification LLM : utiliser gguf 4/8 bits pour CPU, GPU si disponible dans llama.cpp/gpt4all.
+
 ## Structure de base actuelle
 - `install.sh` : création d'environnement virtuel et installation des dépendances.
+- `install_windows.ps1` : installation équivalente pour Windows (PowerShell).
 - `requirements.txt` / `environment.yml` : listes des dépendances Python (CPU/GPU).
 - `vision/detect.py` : détection d'ingrédients via YOLOv8 avec fallback CPU.
 - `api/server.py` : API FastAPI minimale pour l'analyse d'images.
