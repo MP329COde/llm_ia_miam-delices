@@ -130,7 +130,10 @@ def convert_csv_to_yolo(csv_path: Path, images_dir: Path, output_dir: Path) -> N
             class_to_id[class_name] = len(class_to_id)
         class_id = class_to_id[class_name]
 
-        x_min, y_min, x_max, y_max = float(row["xmin"]), float(row["ymin"]), float(row["xmax"]), float(row["ymax"])
+        x_min = float(row["xmin"])
+        y_min = float(row["ymin"])
+        x_max = float(row["xmax"])
+        y_max = float(row["ymax"])
         w, h = x_max - x_min, y_max - y_min
         cx, cy, w_norm, h_norm = coco_bbox_to_yolo((x_min, y_min, w, h), width, height)
         line = f"{class_id} {cx:.6f} {cy:.6f} {w_norm:.6f} {h_norm:.6f}"

@@ -59,10 +59,10 @@ class FeedbackPayload(BaseModel):
     """
 
     score: float | None = Field(
-        default=None, ge=0.0, le=5.0, description="Note entre 0 et 5 incluse."
+        default=None, ge=0.0, le=5.0, description="Rating between 0 and 5 inclusive."
     )
     comment: str | None = Field(
-        default=None, max_length=2000, description="Commentaire texte (2000 caractères max)."
+        default=None, max_length=2000, description="Optional comment (2000 chars max)."
     )
     correction: Dict[str, Any] | None = None
 
