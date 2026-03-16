@@ -35,13 +35,7 @@ Write-Header "Installation des dépendances (requirements.txt)"
 python -m pip install -r requirements.txt
 
 Write-Header "Vérification PyTorch"
-python - <<'PYCODE'
-import torch
-print(f"PyTorch version: {torch.__version__}")
-print(f"CUDA available: {torch.cuda.is_available()}")
-if torch.cuda.is_available():
-    print(f"GPU: {torch.cuda.get_device_name(0)}")
-PYCODE
+python -c "import torch;print(f'PyTorch version: {torch.__version__}');print(f'CUDA available: {torch.cuda.is_available()}');print(f'GPU: {torch.cuda.get_device_name(0)}' if torch.cuda.is_available() else 'GPU: none')"
 
 Write-Header "Installation terminée"
 Write-Host "Activez l'environnement avec: .\\.venv\\Scripts\\Activate.ps1"

@@ -107,6 +107,7 @@ def run_inference(
         cls_idx = int(box.cls.item())
         score = float(box.conf.item())
         xyxy = box.xyxy.cpu().numpy().tolist()[0]
+        # Ultralytics stocke les noms soit sur la sortie (results[0].names) soit sur le modèle.
         names = results[0].names if hasattr(results[0], "names") else model.model.names
         parsed.append(
             {
