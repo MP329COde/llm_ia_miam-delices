@@ -20,13 +20,14 @@ from typing import Any, Dict, List
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from vision.detect import run_inference
 
 app = FastAPI(title="IA Culinaire Locale", version="0.1.0")
 
-# CORS permissif pour faciliter les tests frontend locaux (à restreindre en prod).
+# CORS permissif pour faciliter les tests frontend locaux (origines locales seulement).
+# En production, resserrez cette liste et conservez allow_credentials à False.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -57,8 +58,12 @@ class FeedbackPayload(BaseModel):
     Modèle de feedback utilisateur (basique) pour sécuriser les entrées.
     """
 
-    score: float | None = None
-    comment: str | None = None
+    score: float | None = Field(
+        default=None, ge=0.0, le=5.0, description="Note entre 0 et 5 incluse."
+    )
+    comment: str | None = Field(
+        default=None, max_length=2000, description="Commentaire texte (2000 caractères max)."
+    )
     correction: Dict[str, Any] | None = None
 
 
