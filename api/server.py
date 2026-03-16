@@ -132,5 +132,5 @@ async def feedback(payload: FeedbackPayload) -> Dict[str, str]:
     return {
         "status": "accepted",
         "detail": "Feedback enregistré (brouillon)",
-        "received": payload.model_dump(),
+        "feedback_data": payload.model_dump(),
     }

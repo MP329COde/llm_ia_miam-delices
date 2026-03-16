@@ -38,7 +38,9 @@ Par défaut, le script utilise `train/yolo_train.yaml` (à adapter à votre data
 ## Conversion d'annotations au format YOLO
 ```bash
 source .venv/bin/activate
-python data/convert_to_yolo.py --coco chemin/annotations.json --images-dir chemin/images --output-dir sortie_yolo
+python data/convert_to_yolo.py --coco chemin/annotations.json --output-dir sortie_yolo
+# Pour un CSV (requiert les images pour calculer les dimensions) :
+# python data/convert_to_yolo.py --csv boxes.csv --images-dir chemin/images --output-dir sortie_yolo
 ```
 Le script accepte aussi un CSV (colonnes `file,xmin,ymin,xmax,ymax,class_name`).
 
