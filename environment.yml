@@ -1,0 +1,31 @@
+name: llm-ia-miam-delices
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - cudatoolkit=11.8  # retiré automatiquement en mode CPU-only
+  - pip
+  - pip:
+      - ultralytics
+      - transformers
+      - timm
+      - albumentations
+      - opencv-python
+      - pillow
+      - fastapi
+      - uvicorn
+      - chromadb
+      - langchain
+      - sentence-transformers
+      - datasets
+      - scikit-learn
+      - matplotlib
+      - pandas
+      - numpy
+      - pyyaml
+      - tqdm
+      - huggingface-hub
+      - python-multipart

@@ -1,0 +1,23 @@
+# Dépendances principales pour l'IA culinaire (CPU/GPU).
+torch
+torchvision
+ultralytics
+transformers
+timm
+albumentations
+opencv-python
+pillow
+fastapi
+uvicorn
+chromadb
+langchain
+sentence-transformers
+datasets
+scikit-learn
+matplotlib
+pandas
+numpy
+pyyaml
+tqdm
+huggingface-hub
+python-multipart
