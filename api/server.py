@@ -62,7 +62,9 @@ class FeedbackPayload(BaseModel):
         default=None, ge=0.0, le=5.0, description="User score (0-5)."
     )
     comment: str | None = Field(
-        default=None, max_length=2000, description="Optional comment (2000 chars max)."
+        default=None,
+        max_length=2000,
+        description="Optional comment about detections/recipe quality (2000 chars max).",
     )
     correction: Dict[str, Any] | None = None
 

@@ -152,7 +152,14 @@ def get_class_names(result_obj: Any, model: Any) -> Dict[int, str]:
     Raises:
         RuntimeError: si aucun mapping n'est disponible.
     """
-    names = getattr(result_obj, "names", None) or getattr(getattr(model, "model", None), "names", {}) or {}
+    names_from_result = getattr(result_obj, "names", None)
+    names_from_model = getattr(getattr(model, "model", None), "names", None)
+    names: Dict[int, str] = {}
+    if isinstance(names_from_result, dict):
+        names = names_from_result
+    elif isinstance(names_from_model, dict):
+        names = names_from_model
+
     if not names:
         raise RuntimeError("Impossible de récupérer le mapping des classes (names).")
     return names

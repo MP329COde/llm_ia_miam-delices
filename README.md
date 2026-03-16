@@ -60,7 +60,7 @@ Le script accepte aussi un CSV (colonnes `file,xmin,ymin,xmax,ymax,class_name`).
   - GPU : augmentez `batch` dans `train/yolo_train.sh` (0 = auto YOLOv8), utilisez `imgsz` réduit (512/448) en cas de VRAM limitée.
   - CPU-only : préférez `yolov8n.pt`, désactivez l'affichage/sauvegarde (`show=False`, `save=False` avec Ultralytics). Un seuil `--conf` plus élevé filtre les boîtes faibles et réduit un peu la post-procession.
   - Activations rapides : PyTorch active `cudnn.benchmark` automatiquement pour lots fixes ; sinon fixez `CUDNN_BENCHMARK=1`.
-  - Quantization LLM : utiliser gguf 4/8 bits pour CPU, GPU si disponible dans llama.cpp/gpt4all.
+  - Quantization LLM : Utiliser gguf 4/8 bits pour CPU, GPU si disponible dans llama.cpp/gpt4all.
 
 ## Structure de base actuelle
 - `install.sh` : création d'environnement virtuel et installation des dépendances.
