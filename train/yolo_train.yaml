@@ -1,0 +1,9 @@
+# Fichier de configuration YOLOv8 pour la détection d'ingrédients.
+# Adaptez les chemins 'train' et 'val' vers vos datasets au format YOLO.
+
+path: data/dataset  # répertoire racine contenant images/ et labels/
+train: images/train
+val: images/val
+
+names:
+  0: ingredient

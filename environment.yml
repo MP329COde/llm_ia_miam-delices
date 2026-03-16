@@ -1,0 +1,33 @@
+name: llm-ia-miam-delices
+# Note CPU-only : supprimez la ligne cudatoolkit ci-dessous ou installez avec --no-deps pour éviter CUDA.
+# Note GPU CUDA : conservez cudatoolkit et le canal pytorch pour bénéficier des builds GPU.
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - cudatoolkit=11.8  # supprimez cette ligne manuellement si vous voulez une installation strictement CPU
+  - pip
+  - pip:
+      - ultralytics
+      - transformers
+      - timm
+      - albumentations
+      - opencv-python
+      - pillow
+      - fastapi
+      - uvicorn
+      - chromadb
+      - langchain
+      - sentence-transformers
+      - datasets
+      - scikit-learn
+      - matplotlib
+      - pandas
+      - numpy
+      - pyyaml
+      - tqdm
+      - huggingface-hub
+      - python-multipart
