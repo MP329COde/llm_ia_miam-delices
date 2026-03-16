@@ -6,7 +6,7 @@ dependencies:
   - python=3.10
   - pytorch
   - torchvision
-  - cudatoolkit=11.8  # retiré automatiquement en mode CPU-only
+  - cudatoolkit=11.8  # supprimez cette ligne manuellement si vous voulez une installation strictement CPU
   - pip
   - pip:
       - ultralytics

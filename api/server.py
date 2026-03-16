@@ -9,7 +9,7 @@ Endpoints
 ---------
 - GET /health : ping de santé simple.
 - POST /analyse : upload d'image (multipart/form-data) -> détections JSON.
-- POST /feedback (placeholder) : stockage ultérieur des retours utilisateurs.
+- POST /feedback (exemple) : stockage ultérieur des retours utilisateurs.
 """
 
 from __future__ import annotations
@@ -124,13 +124,13 @@ async def feedback(payload: FeedbackPayload) -> Dict[str, str]:
     (Non persisté ici, à compléter avec une base locale SQLite/CSV.)
 
     Args:
-        payload: contenu libre envoyé par le frontend.
+        payload: données structurées envoyées par le frontend.
 
     Returns:
         dict: message de confirmation.
     """
     return {
         "status": "accepted",
-        "detail": "Feedback enregistré (placeholder)",
+        "detail": "Feedback enregistré (brouillon)",
         "received": payload.model_dump(),
     }
