@@ -70,6 +70,63 @@ Le script accepte aussi un CSV (colonnes `file,xmin,ymin,xmax,ymax,class_name`).
 - `api/server.py` : API FastAPI minimale pour l'analyse d'images.
 - `train/yolo_train.sh` : script shell pour entraîner un modèle de détection.
 - `data/convert_to_yolo.py` : conversion COCO/CSV vers labels YOLO.
+- `data/sample/` : données d'exemple synthétiques et script de génération.
+- `tests/` : suite de tests unitaires et d'intégration (pytest).
+- `Makefile` : raccourcis pour tester, lancer, convertir et expérimenter.
+
+## Tests — Vérifier ce qui fonctionne
+
+La suite de tests couvre `vision/detect.py`, `data/convert_to_yolo.py` et `api/server.py`
+sans nécessiter de modèle ML ni de GPU.
+
+```bash
+# Lancer tous les tests
+make test
+# ou directement :
+python -m pytest tests/ -v
+
+# Cibler un module
+make test-detect   # vision/detect.py
+make test-data     # data/convert_to_yolo.py
+make test-api      # api/server.py
+
+# Avec rapport de couverture (nécessite pytest-cov)
+pip install pytest-cov
+make test-cov
+```
+
+## Expérimenter avec des données d'exemple
+
+```bash
+# 1. Générer des images et annotations synthétiques
+make data-sample
+# Crée data/sample/sample.jpg, annotations_coco.json, annotations.csv
+
+# 2. Convertir les annotations COCO en format YOLO
+make data-coco COCO=data/sample/annotations_coco.json OUT=data/sample/yolo_out
+
+# 3. Convertir un CSV d'annotations en format YOLO
+make data-csv CSV=data/sample/annotations.csv IMGS=data/sample OUT=data/sample/yolo_out
+
+# 4. Tester la détection sur l'image synthétique (nécessite ultralytics)
+make detect IMAGE=data/sample/sample.jpg
+```
+
+### Ajouter vos propres données
+
+**Format COCO** : exportez depuis LabelImg, CVAT ou Roboflow au format COCO JSON, puis :
+```bash
+python data/convert_to_yolo.py --coco vos_annotations.json --output-dir yolo_out/
+```
+
+**Format CSV** : créez un fichier avec les colonnes `file,xmin,ymin,xmax,ymax,class_name`
+(une ligne par boîte englobante), puis :
+```bash
+python data/convert_to_yolo.py --csv vos_boites.csv --images-dir dossier_images/ --output-dir yolo_out/
+```
+
+Copiez ensuite le dossier `yolo_out/` vers `data/dataset/labels/` et mettez à jour
+`train/yolo_train.yaml` avec vos classes avant de lancer `make train`.
 
 ## Prochaines étapes (feuille de route)
 - Ajouter la classification timm et la génération de légendes (BLIP).

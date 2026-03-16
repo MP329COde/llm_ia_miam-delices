@@ -17,3 +17,11 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Test artefacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Generated data outputs
+data/sample/yolo_out/

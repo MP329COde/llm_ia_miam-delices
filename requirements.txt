@@ -21,3 +21,6 @@ pyyaml
 tqdm
 huggingface-hub
 python-multipart
+# Tests
+pytest
+httpx

@@ -1,0 +1,62 @@
+{
+  "images": [
+    {
+      "id": 1,
+      "file_name": "sample.jpg",
+      "width": 320,
+      "height": 240
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "tomate"
+    },
+    {
+      "id": 2,
+      "name": "carotte"
+    },
+    {
+      "id": 3,
+      "name": "brocoli"
+    }
+  ],
+  "annotations": [
+    {
+      "id": 1,
+      "image_id": 1,
+      "category_id": 1,
+      "bbox": [
+        30,
+        50,
+        80,
+        80
+      ],
+      "area": 6400
+    },
+    {
+      "id": 2,
+      "image_id": 1,
+      "category_id": 2,
+      "bbox": [
+        140,
+        80,
+        60,
+        100
+      ],
+      "area": 6000
+    },
+    {
+      "id": 3,
+      "image_id": 1,
+      "category_id": 3,
+      "bbox": [
+        230,
+        40,
+        70,
+        70
+      ],
+      "area": 4900
+    }
+  ]
+}

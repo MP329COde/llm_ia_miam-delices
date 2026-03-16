@@ -1,0 +1,4 @@
+file,xmin,ymin,xmax,ymax,class_name
+sample.jpg,30,50,110,130,tomate
+sample.jpg,140,80,200,180,carotte
+sample.jpg,230,40,300,110,brocoli

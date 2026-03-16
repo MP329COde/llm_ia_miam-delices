@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
@@ -120,7 +120,7 @@ async def analyse_image(file: UploadFile = File(...)) -> DetectionResponse:
 
 
 @app.post("/feedback")
-async def feedback(payload: FeedbackPayload) -> Dict[str, str]:
+async def feedback(payload: FeedbackPayload) -> Dict[str, Any]:
     """
     Point d'extension pour recevoir le feedback utilisateur.
     (Non persisté ici, à compléter avec une base locale SQLite/CSV.)
