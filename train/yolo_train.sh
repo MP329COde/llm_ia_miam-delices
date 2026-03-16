@@ -7,7 +7,7 @@ DATA_CONFIG=${DATA_CONFIG:-train/yolo_train.yaml}
 MODEL_WEIGHTS=${MODEL_WEIGHTS:-yolov8n.pt}
 EPOCHS=${EPOCHS:-100}
 IMGSZ=${IMGSZ:-640}
-BATCH=${BATCH:-0} # 0 = auto-détection de la taille de batch par YOLOv8
+BATCH=${BATCH:-0} # 0 = auto-detection de la taille de batch par YOLOv8
 PROJECT=${PROJECT:-runs/detect}
 NAME=${NAME:-exp}
 

@@ -103,14 +103,11 @@ def run_inference(
     model = load_model(model_name=model_name)
     results = model(image_path_obj, conf=conf)
     parsed: List[Dict[str, Any]] = []
+    names = get_class_names(results[0], model)
     for box in results[0].boxes:
         cls_idx = int(box.cls.item())
         score = float(box.conf.item())
         xyxy = box.xyxy.cpu().numpy().tolist()[0]
-        # Ultralytics stocke les noms soit sur la sortie (results[0].names) soit sur le modèle.
-        names = getattr(results[0], "names", None) or getattr(model.model, "names", {}) or {}
-        if not names:
-            raise RuntimeError("Impossible de récupérer le mapping des classes (names).")
         parsed.append(
             {
                 "class_id": cls_idx,
@@ -139,6 +136,26 @@ def save_json(payload: Dict[str, Any], json_path: str) -> None:
     """
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
+
+
+def get_class_names(result_obj: Any, model: Any) -> Dict[int, str]:
+    """
+    Récupère le mapping id -> nom de classe depuis la sortie Ultralytics ou le modèle.
+
+    Args:
+        result_obj: objet de résultat (results[0]).
+        model: modèle YOLO chargé.
+
+    Returns:
+        dict: mapping des classes.
+
+    Raises:
+        RuntimeError: si aucun mapping n'est disponible.
+    """
+    names = getattr(result_obj, "names", None) or getattr(getattr(model, "model", None), "names", {}) or {}
+    if not names:
+        raise RuntimeError("Impossible de récupérer le mapping des classes (names).")
+    return names
 
 
 def save_csv(detections: List[Dict[str, Any]], csv_path: str) -> None:
