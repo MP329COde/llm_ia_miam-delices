@@ -24,3 +24,6 @@ python-multipart
 # Tests
 pytest
 httpx
+# LLM locaux optionnels (décommenter selon votre configuration)
+# llama-cpp-python
+# gpt4all

@@ -25,3 +25,8 @@ htmlcov/
 
 # Generated data outputs
 data/sample/yolo_out/
+data/dataset/
+data/uploads/
+
+# ChromaDB local vector store
+rag/db/
